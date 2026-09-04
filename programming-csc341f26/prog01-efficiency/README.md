@@ -92,7 +92,7 @@ Push your folder to gitlab for submission. View the markdown file through the gi
 
 > Notice that your .csv and .png files are not being pushed to github. When you meet with Dr. Larson, we will fix this together.
 
-**Make an appointment with Dr. Larson to discuss your work and submission (using this link: XXX).**
+**Make an appointment with Dr. Larson to discuss your work and submission (using this link: https://calendar.app.google/mPxgKEghLWM13TUHA.**
 
 During the meeting, you will be asked to do the following:
 
