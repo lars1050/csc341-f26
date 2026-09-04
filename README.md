@@ -25,7 +25,7 @@ and other systems that interact closely with hardware. It is often the preferred
 what is essentially a Linux shell, although Mac calls this environment `Darwin` -- something you occasionally see referenced.
 
 Windows has typically referred to the terminal as the _command window_ and it uses slightly different commands (e.g. `dir` instead of `ls`). Now in Windows, 
-there is the `power shell` that functions almost identically to a Linux shell. *It is recommended that you use the power shell.*
+there is the `power shell` that functions almost identically to a Linux shell. You probably also have Git bash, which is installed when you install git. *It is recommended that you use the Git bash or power shell.*
 
 For this class, we will not be using any _IDE_ (integrated development environment), such as NetBeans. 
 Programmers generally use a mix of IDEs and code editors. You should acquire both skills, and it is important that you
@@ -52,7 +52,7 @@ Here are the most useful and most used shell commands:
 | `.` | in general refers to the current directory |
 |    |   |
 
-> Mac and Linux use `/` slashes to dilineate folders, but Windows uses `\`. Try the other slash if things are not working!
+> Mac and Linux use `/` slashes to delineate folders, but Windows uses `\`. Try the other slash if things are not working!
 
 At any time while you are typing a command, you can hit `tab` and it will attempt to auto-complete your command.
 For example, if you were trying to navigate to csc341F22, you can type `cd csc341` then `tab` and it will finish the
@@ -78,7 +78,7 @@ locally on your machine and on a remote server in the cloud. You can use differe
 such as GitHub, Gitlab, and BitBucket. For this class, we will use GitHub and Gitlab.
 
 Git offers a lot of functionality for the purpose of developing software as part of a team. Primarily for this class, GitHub will be used to 
-post assignments and Gitlab will be used for you to collaborate with your peers on projects. You will _pull_ down the repo each time an assignment is posted, which will grab only what has changed and put it into your git directory.
+post assignments and Gitlab will be used for you to submit your work and to collaborate with your peers on projects. You will _pull_ down the repo from GitHub each time an assignment is posted, which will grab only what has changed and put it into your git directory.
 
 > "Pro Git", found here https://git-scm.com/book/en/v2, is a great and easy read to learn more about Git.
 
