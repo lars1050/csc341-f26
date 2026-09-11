@@ -1,0 +1,407 @@
+import java.lang.reflect.*;
+import java.util.Scanner;
+import java.io.*;
+
+public class TestListEnhanced extends Assert {
+
+	static Song s0 = new Song("s00","art00","alb00",2000,200);
+	static Song s1 = new Song("s01","art01","alb01",2001,201);
+	static Song s2 = new Song("s02","art02","alb02",2002,202);
+	static Song s3 = new Song("s03","art03","alb03",2003,203);
+	static Song s4 = new Song("s04","art04","alb04",2004,204);
+	static Song s5 = new Song("s05","art05","alb05",2005,205);
+
+	public static void assertEquals(Song expect, Song result, String msg) {
+		boolean match = true;
+		// First test for nulls to avoid Exceptions
+		if ((null==expect) && (null!=result)) {
+			match = false;
+		} else if ((null==expect) && (null==result)) {
+			match = true;
+		} else {
+			match = (expect.equals(result));
+		}
+		if (!match) {
+			System.out.println(msg+".\n   Expect "+expect+".\n   Result "+result);
+		}
+	}
+
+	public static void main(String[] args) {
+
+		// Initial add() and get() test
+		/* It is a bit of a chicken-and-egg problem.
+		* To test add(), get() needs to be correct to confirm song was added.
+		* To test get(), add() needs to be correct to confirm location of song.
+		*/
+
+		System.out.println("\n\nSanity check test of add, count, get.");
+		System.out.println("If these initial tests do not pass, the rest of the tests are irrelevant!\n");
+
+		try {
+			SongList songs = new SongList(5);
+			songs.add(s1);
+			assertEquals(1,songs.length(),"First Add (count)");
+			assertEquals(s1,songs.get(0),"First Add (s1)");
+		} catch (Exception e) {
+			System.out.println("Sanity Check FAILED ... DO NOT PROCEED.");
+			e.printStackTrace();
+		}
+		System.out.println("\nSanity Check complete!");
+
+		/* Once the above are confirmed to be working, the testing can proceed.
+		*/
+
+		try {
+			testAddAll();
+		} catch(Exception e) {
+			System.out.println("\n\nAddAll THROWING EXCEPTION.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+		try {
+			testFindSong();
+		} catch(Exception e) {
+			System.out.println("\n\nFindSong THROWING EXCEPTION.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+
+		try {
+			testRemoves();
+		} catch(Exception e) {
+			System.out.println("\n\nREMOVES THROWING EXCEPTION.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+
+		try {
+			testConverts();
+		} catch(Exception e) {
+			System.out.println("\n\nENHANCED CONVERT THROWING EXCEPTION.");
+			e.printStackTrace();
+			System.out.println("\n\n");
+		}
+
+	} // end main
+
+	/* __________________________________________________________________ */
+	public static void testAddAll() throws Exception {
+		System.out.println("\n\n_________________________________________");
+		System.out.println("Testing SongList constructor ...");
+
+		SongList songs;
+
+
+		System.out.println("--------------addAll()");
+		songs = new SongList(8);
+
+		Song[] toAdd = {s0,s1,s2};
+
+		songs.addAll(toAdd);
+		assertEquals(3,songs.length(),"addAll to empty (size)");
+		assertEquals(s0,songs.get(0),"addAll added to empty (s0)");
+		assertEquals(s1,songs.get(1),"addAll added to empty (s1)");
+		assertEquals(s2,songs.get(2),"addAll added to empty (s2)");
+
+		Song[] moreAdds = {s3,s4,s5};
+		songs.addAll(moreAdds);
+		assertEquals(6,songs.length(),"addAll add 3 to 3 (size)");
+		assertEquals(s3,songs.get(3),"addAll add 3 to 3 (s3)");
+
+		// cannot add (over capacity)
+		try {
+			songs.addAll(toAdd);
+		} catch (IllegalOperationException e) {
+				// This is the expected behavior. List should not change.
+				assertEquals(6,songs.length(),"attempt add over capacity");
+		}
+
+		// add to limit
+		Song[] two = {s2,s5};
+		songs.addAll(two);
+		assertEquals(8,songs.length(),"addAll up to capacity");
+
+	} // end testConstructorGetters
+
+	/* __________________________________________________________________ */
+	public static void testFindSong() throws Exception {
+		System.out.println("\n\n_________________________________________");
+		System.out.println("Testing SongList search methods ...");
+
+		SongList songs;
+		
+		Song altj = new Song("Breezeblocks","alt-J","An Awesome Wave",2012,227);
+		Song bonh = new Song("22 (OVER S∞∞N)","Bon Hiver","22, A Million",2016,168);
+		Song billie = new Song("Everything I Wanted","Billie Eilish","everything i wanted",2019,245);
+		Song franz = new Song("Take Me Out","Franz Ferdinand","Franz Ferdinand",2004,237);
+		
+		
+
+		System.out.println("--------------find(title)");
+		songs = new SongList(8);
+		songs.add(altj);
+		songs.add(bonh);
+		songs.add(billie);
+		songs.add(franz);
+
+		int index;
+
+		// It is at location 0
+		index = songs.findSong(altj.title());
+		assertEquals(0,index,"at location 0");
+
+		// It is at location 1
+		index = songs.findSong(bonh.title());
+		assertEquals(1,index,"at location 1");
+
+		// It is at location 2
+		index = songs.findSong(billie.title());
+		assertEquals(2,index,"at location 2");
+
+		// It is at location 3
+		index = songs.findSong(franz.title());
+		assertEquals(3,index,"at location 3");
+
+		// It is not in there.
+		index = songs.findSong("blah");
+		assertEquals(-1,index,"not in there");
+
+	} // end testFindSong
+
+	/* __________________________________________________________________ */
+	public static void testRemoves() throws Exception {
+		System.out.println("\n\n_________________________________________");
+		System.out.println("Testing SongList search methods ...");
+
+		// This assumes add, length is working.
+
+		SongList songs;
+
+		System.out.println("--------------remove(index)");
+		songs = new SongList(6);
+		songs.add(s0);
+		songs.add(s1);
+		songs.add(s2);
+		songs.add(s3);
+
+		Song removed;
+
+		int count = 0;
+
+		// attempt remove invalid at 4
+		try {
+			count = songs.length();
+			songs.remove(4);
+		} catch(ArrayIndexException e) {
+			// expected behavior
+			assertEquals(count,songs.length(),"size changed but invalid index 4.");
+		}
+
+		// attempt remove invalid at -1
+		try {
+			count = songs.length();
+			songs.remove(-1);
+		} catch(ArrayIndexException e) {
+			// expected behavior
+			assertEquals(count,songs.length(),"size changed but invalid index -1.");
+		}
+
+		songs = new SongList(6);
+		songs.add(s0);
+		songs.add(s1);
+		songs.add(s2);
+		songs.add(s3);
+
+		// remove middle s1 from {s0,s1, s2,s3} == {s0,s2,s3}
+		removed = songs.remove(1);
+		assertEquals(3,songs.length(),"remove middle (length)");
+		assertEquals(s1,removed,"remove middle (value)");
+
+		// remove last s3 from {s0,s2,s3} == {s0,s2}
+		removed = songs.remove(2);
+		assertEquals(2,songs.length(),"remove last (length)");
+		assertEquals(s3,removed,"remove last (value)");
+
+		// remove first (s0) from {s0,s2} == {s2}
+		removed = songs.remove(0);
+		assertEquals(1,songs.length(),"remove first (length)");
+		assertEquals(s0,removed,"remove first (value)");
+
+		// remove only (s2)
+		removed = songs.remove(0);
+		assertEquals(0,songs.length(),"remove only (length)");
+		assertEquals(s2,removed,"remove only (value)");
+
+		// _________________________________________________________
+		System.out.println("--------------remove(Song)");
+		songs = new SongList(6);
+		
+		// attempt remove not in list
+		try {
+			count = songs.length();
+			songs.remove(s0);
+			System.out.println("remove from empty list. Expect Exception. None thrown.");
+		} catch(IllegalOperationException e) {
+			// expected behavior. all good.
+			assertEquals(count,songs.length(),"size changed but invalid song");
+		}
+		
+		songs.add(s0);
+		songs.add(s1);
+		songs.add(s2);
+		songs.add(s3);
+
+		// remove middle s1 from {s0,s1, s2,s3} == {s0,s2,s3}
+		songs.remove(s1);
+		assertEquals(3,songs.length(),"remove middle (s1)");
+
+		// remove last s3 from {s0,s2,s3} == {s0,s2}
+		songs.remove(s3);
+		assertEquals(2,songs.length(),"remove last (s3)");
+
+		// remove first (s0) from {s0,s2} == {s2}
+		songs.remove(s0);
+		assertEquals(1,songs.length(),"remove first (s0)");
+
+		// remove only (s2)
+		songs.remove(s2);
+		assertEquals(0,songs.length(),"remove only song (length)");
+		
+		// _________________________________________________________
+		System.out.println("--------------removeAll(Artist)");
+		
+		songs = new SongList(6);
+		
+		// remove from empty
+		assertEquals(0,songs.removeAll("blah"),"removeAll from empty");
+		
+		Song altj = new Song("Breezeblocks","alt-J","An Awesome Wave",2012,227);
+		Song bonh = new Song("22 (OVER S∞∞N)","Bon Hiver","22, A Million",2016,168);
+		Song billie = new Song("Everything I Wanted","Billie Eilish","everything i wanted",2019,245);
+		Song franz = new Song("Take Me Out","Franz Ferdinand","Franz Ferdinand",2004,237);
+		Song lum1 = new Song("Ho Hey","The Lumineers","The Lumineers",2012,163);
+		Song lum2 = new Song("Stubborn Love","The Lumineers","The Lumineers",2012,278);
+		
+		
+		songs.add(altj);
+		songs.add(lum1);
+		songs.add(bonh);
+		songs.add(billie);
+		songs.add(lum2);
+		songs.add(bonh);
+		
+		assertEquals(0,songs.removeAll("blah"),"removeAll not in list");
+		assertEquals(1,songs.removeAll("Billie Eilish"),"removeAll billie");
+		assertEquals(2,songs.removeAll("Bon Hiver"),"removeAll Bon Hiver");
+		assertEquals(3,songs.length(),"length after a few removeAll");
+		assertEquals(1,songs.removeAll("alt-J"),"removeAll alt-J");
+		assertEquals(2,songs.removeAll("The Lumineers"),"removeall lumineers");
+		assertEquals(0,songs.length(),"length after removing everything");
+	} // end testRemoves
+
+	/* __________________________________________________________________ */
+	public static void testConverts() throws Exception {
+		System.out.println("\n\n_________________________________________");
+		System.out.println("Testing SongList convert methods ...");
+
+		SongList songs;
+		Song[] array;
+
+		System.out.println("--------------Testing toArray(Song[])");
+		
+		songs = new SongList(4);
+		
+		songs.add(s0);
+		songs.add(s1);
+		songs.add(s2);
+		
+		// Fill array larger than count of list
+		array = new Song[10];
+		int copied = 0;
+		
+		copied = songs.toArray(array);
+		assertEquals(3,copied,"copy into larger array");
+		assertEquals(s0,array[0],"copy into larger (s0)");
+		assertEquals(s1,array[1],"copy into larger (s1)");
+		assertEquals(s2,array[2],"copy into larger (s2)");
+		
+		// Fill array same size as count
+		array = new Song[3];
+		copied = songs.toArray(array);
+		assertEquals(3,copied,"copy into same size array");
+		assertEquals(s0,array[0],"copy into same size (s0)");
+		assertEquals(s1,array[1],"copy into same size (s1)");
+		assertEquals(s2,array[2],"copy into same size (s2)");
+
+		// copy into smaller - not allowed
+		int count = songs.length();
+		array = new Song[2];
+		try {
+			copied = songs.toArray(array);
+			System.out.println("toArray for empty list. Expect Exception. None thrown.");
+		} catch(IllegalOperationException e) {
+			// expected behavior. all good.
+			assertEquals(count,songs.length(),"size changed but array too small.");
+		}
+		
+		System.out.println("--------------Testing sublist()");
+		
+		songs = new SongList(10);
+		songs.add(s0);
+		songs.add(s1);
+		songs.add(s2);
+		songs.add(s3);
+		songs.add(s4);
+		songs.add(s5);
+		
+		Song[] sublist;
+		
+		// copy all the elements
+		sublist = songs.sublist(0,5);
+		assertEquals(6,sublist.length,"copied all (count)");
+		assertEquals(s0,sublist[0],"copied all (s0)");
+		assertEquals(s5,sublist[5],"copied all (s5)");
+		
+		// copy some of the elements in the middle
+		sublist = songs.sublist(2,4);
+		assertEquals(3,sublist.length,"copied middle elements (count)");
+		assertEquals(s2,sublist[0],"copied middle (s2)");
+		assertEquals(s4,sublist[2],"copied middle (s4)");
+		
+		// copy front of list
+		sublist = songs.sublist(0,2);
+		assertEquals(3,sublist.length,"copied front elements (count)");
+		assertEquals(s0,sublist[0],"copied front (s0)");
+		assertEquals(s2,sublist[2],"copied front (s2)");
+		
+		// copy end of list
+		sublist = songs.sublist(3,5);
+		assertEquals(3,sublist.length,"copied end elements (count)");
+		assertEquals(s3,sublist[0],"copied end (s3)");
+		assertEquals(s5,sublist[2],"copied end (s5)");
+		
+		// Invalid index -1
+		try {
+			songs.sublist(-1,4);
+			System.out.println("sublist with -1 index. Expect Exception. None thrown.");
+		} catch(ArrayIndexException e) {
+			// expected behavior. all good.
+		}
+		
+		// invalid index 8
+		try {
+			songs.sublist(2,8);
+			System.out.println("sublist with 8 index. Expect Exception. None thrown.");
+		} catch(ArrayIndexException e) {
+			// expected behavior. all good.
+		}
+		
+		// invalid index reverse order
+		try {
+			songs.sublist(3,0);
+			System.out.println("sublist 3,0 indices. Expect Exception. None thrown.");
+		} catch(ArrayIndexException e) {
+			// expected behavior. all good.
+		}
+	} // end testConvert
+} // end class Main
