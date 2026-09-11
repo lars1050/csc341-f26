@@ -55,7 +55,7 @@ You can view the results by opening the index.html file in your browser.
 
 Testing is an essentail part of coding. In this assignment, you will use the provided unit tests to ensure your code is working properly.
 
-To run the tests, compile your code and run the TestList.java file. **If you see any output on the screen that starts with "ERROR," then your code is wrong** (or my tests are wrong, but I did check them, so I think they are good, but you can always ask to be sure!).
+To run the tests, compile your code and run the TestList.java file. **If you see any output on the screen with "Expect" and "Result" then your code is wrong** (or my tests are wrong, but I did check them, so I think they are good, but you can always ask to be sure!).
 
 ```
 javac *.java
