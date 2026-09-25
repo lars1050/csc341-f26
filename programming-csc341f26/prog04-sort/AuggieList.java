@@ -53,14 +53,18 @@ public class AuggieList {
 	* @param value Value to be added
 	*/
 	public void add(Auggie value) {
-		if (!isFull()) {
-			auggies[length++] = value;
-			// we broke any ordering that exists
-			isOrdered = false;
-			currentOrder = null;
+		if (isFull()) {
+			// in bad form, ignoring if there is no capacity
+			return;
 		}
-		// in bad form, ignoring if there is no capacity
+
+		auggies[length++] = value;
+		
+		// we broke any ordering that exists
+		isOrdered = false;
+		currentOrder = null;
 	}
+
 
 	/* ______________________   FIND METHODS _________________________ */
 	
@@ -121,9 +125,11 @@ public class AuggieList {
 		while (i<length && !value.equals(auggies[i])) {
 			i++;
 		}
+		// Did not find the element
 		if (i==length) {
 			return -1;
 		}
+		// Found it here
 		return i;
 	}
 	
@@ -156,9 +162,9 @@ public class AuggieList {
 	*/
 	private int locationMinimum(Comparator<Auggie> order, int start, int end) {
 	
-		// search entire array for the minimum value
+		// search subarray for the minimum value
 		// TODO: complete this method
-		return 0;
+		return -1;
 	}
 
 	/** Private helper function

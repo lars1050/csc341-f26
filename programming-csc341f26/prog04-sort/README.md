@@ -1,5 +1,5 @@
 ### Programming Assignment 04 : LIST Sorting and Recursive Binary Search
-#### Due Thursday, October 1 end-of-day
+#### Due Friday, October 2 end-of-day
 #### Submit via Gitlab
 
 This programming assignment is a fresh start and you no longer need your code from the previous assignments. This assignment still works with an AuggieList, but the Auggie class has changed. The methods are focused on ordering, sorting the list, and using a recursive version of binary search to take advantage of the ordered list. Parts of this assignment will be developed during class time. 
