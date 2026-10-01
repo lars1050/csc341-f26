@@ -135,8 +135,11 @@ public class AuggieList {
 	}
 	
 	/** Private helper recursive function for binary search.
-	* Convert the dictionary into an array.
-	* @return array of Auggies in dictionary -- array empty if dictionary empty
+	* Find the element in the subarray between [start] and [end], or return -1 if not there
+	* @param value element to find in the list
+	* @param start first index of the subarray to search
+	* @param end last index of the subarray (inclusive) to search
+	* @return location of the element if in the list, -1 if not
 	*/
 	private int findRecursive(Auggie value, int start, int end) {
 	
