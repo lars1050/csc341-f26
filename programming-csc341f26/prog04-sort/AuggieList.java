@@ -98,8 +98,9 @@ public class AuggieList {
 	}
 	
 	/**
-	* Find the location of the minimum value in the List
-	* @return index (location) of the minimum value in the list
+	* Find the minimum value in the List
+	* @param order criteria on which to base "minimum" value
+	* @return the minimum value in the list based on order
 	*/
 	public Auggie minimum(Comparator<Auggie> order) {
 	
