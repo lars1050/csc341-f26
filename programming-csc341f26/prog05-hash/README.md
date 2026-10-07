@@ -1,5 +1,5 @@
 ### Programming Assignment 05 : Hash Table (Dictionary)
-#### Due Thursday, October 8 end-of-day
+#### Due <del>Thursday, October 8</del> Sunday, October 11 end-of-day
 #### Submit via Gitlab
 
 <hr>
