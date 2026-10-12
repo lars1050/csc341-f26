@@ -21,11 +21,11 @@ You have been given a working version of programming assignment 5 on Hash Tables
 
 ### Visualize the Results (Tabular)
 
-Create a markdown file and present the results in tabular form.
+Create a markdown file called *report.md* and present the results in tabular form.
 
-	- Table I: Runtime (in ms) based on the experiment when the table is on scale with the number of elements.
+- Table I: Runtime (in ms) based on the experiment when the table is on scale with the number of elements.
 	
-	- Table II: Runtine (in ms) based on the experiment when the table is 1/10th of the number of elements.
+- Table II: Runtine (in ms) based on the experiment when the table is 1/10th of the number of elements.
 	
 Here is a template for the table:
 
