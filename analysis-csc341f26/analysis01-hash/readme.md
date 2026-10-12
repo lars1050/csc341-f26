@@ -2,9 +2,8 @@
 ### Due Mon, Oct 19, start of class
 ### Submit via Gitlab
 
-To receive full credit, your answers must be both correct and complete, meaning they sufficiently address all aspects of the question. 
+In this folder, there is a working version of programming assignment 5 on Hash Tables, along with a TestHash.java file. When you run the TestHash file, you will see a collection of runtime results for different sized hash tables using the 3 different hash functions. Use these files to conduct 2 experiments and provide a report as a markdown file.
 
-You have been given a working version of programming assignment 5 on Hash Tables, along with a TestHash.java file. When you run the TestHash file, you will see a collection of runtime results for different sized hash tables using the 3 different hash functions.
 
 ### Running the Experiments
 
