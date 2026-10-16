@@ -1,8 +1,8 @@
 ## Programming Assignment 06 : Linked List of Auggies
 
-Due: Thursday, March 26 end-of-day
+Due: Monday, October 26 end-of-day
 
-In this lab, you will again be creating the ADT List, except this time you will be implementing it using a linked list.
+In this programming assignment, you will again be creating the ADT List, except this time you will be implementing it using a linked list.
 
 
 ### GENERAL REQUIREMENTS
@@ -43,28 +43,28 @@ Any method of a List should have the same behavior, regardless if implemented us
 
 **Add Methods**
 
-- `public void add(Auggie auggie)` adds that item to the end of the list.
+- `public void add(Basic basic)` adds that item to the end of the list.
 
-- `public void add(Auggie auggie, int index)` adds that Auggie at the stated index or throws an IllegalOperationException if the index is not valid.
+- `public void add(Basic basic, int index)` adds that Auggie at the stated index or throws an IllegalOperationException if the index is not valid.
 
 
 **Find Methods**
 
-- `public Auggie get(int index)` returns List element at that index or throws IllegalOperationException if the index is not valid.
+- `public Basic get(int index)` returns List element at that index or throws IllegalOperationException if the index is not valid.
 
-- `public int locate(Auggie auggie)` returns index (location) of the auggie or -1 if it is not in the list.
+- `public int locate(Basic auggie)` returns index (location) of the auggie or -1 if it is not in the list.
 
 
 **Remove Methods**
 
-- `public void remove(Auggie auggie)` Removes that item from the list or throws IllegalOperationException if it is not in the list.
+- `public void remove(Basic basic)` Removes that item from the list or throws IllegalOperationException if it is not in the list.
 
-- `public Auggie remove(int index)` Removes the auggie at that index and returns that value. Throws an IllegalOperationException if the index is not valid.
+- `public Basic remove(int index)` Removes the auggie at that index and returns that value. Throws an IllegalOperationException if the index is not valid.
 
 
 **Conversion Method**
 
-- `Auggie[] toArray()` returns an array that contains the List elements. If the list is empty, throws an IllegalOperationException.
+- `Basic[] toArray()` returns an array that contains the List elements. If the list is empty, throws an IllegalOperationException.
 
 - `void reverse()` reorganizes the List so that it is in the reverse order of how it is currently organized. You may iterate over the list only one time to complete this method. You may not create new Nodes in the process.
 
